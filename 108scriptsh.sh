@@ -229,7 +229,6 @@ sudo cat > /var/www/$ServerName/index.html << EOF
 </head>
 <body>
     
-    <img src="./GNUBASHLOGO.png" alt="BASH LOGO">
     
     <div class="div1">
         <h1>La creación de los Virtual Host fue existosa.</h1>
@@ -257,13 +256,6 @@ body{
     background-color: rgb(235, 235, 235);
 }
 
-img{
-    width: 50%;
-    height: auto;
-    margin-left: 25%;
-    overflow: hidden;
-    position: relative;
-}
 h1{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
@@ -324,7 +316,7 @@ sudo cat > /var/www/$ServerName/ErrorDocs/403.html << EOF
 </head>
 <body>
     
-    <img src="../GNUBASHLOGO.png" alt="BASH LOGO">
+ 
     
     <div class="div1">
         <h1>Error 403: SIN AUTORIZACIÓN</h1>
@@ -349,8 +341,7 @@ sudo cat > /var/www/$ServerName/ErrorDocs/404.html << EOF
     <link rel="stylesheet" href="../Main.css">
 </head>
 <body>
-    
-    <img src="../GNUBASHLOGO.png" alt="BASH LOGO">
+  
     
     <div class="div1">
         <h1>Error 404: NO ENCONTRADO</h1>
@@ -376,7 +367,6 @@ sudo cat > /var/www/$ServerName/ErrorDocs/500.html << EOF
 </head>
 <body>
     
-    <img src="../GNUBASHLOGO.png" alt="BASH LOGO">
     
     <div class="div1">
         <h1>Error 500: ERROR INTERNO DEL SERVIDOR</h1>
@@ -513,13 +503,13 @@ cd -
 # Crea una copia de seguridad
 sudo cp  /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
 # Añade las siguientes lineas
-sudo sed -i '45i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '46i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '47i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '48i  #='                                               /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '49i <Directory /var/www/html/wp-admin>'                /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '50i Require ip 10.0.1.10'                              /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '51i </Directory>'                                      /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '2i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '3i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '4i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '5i  #=' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '6i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '7i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '8i </Directory>' /etc/apache2/sites-available/000-default.conf 
  
 #------------------------------- COLOCANDO WORDPRESS EN EL DIRECTORIO HTML -------------------------------------------------------
 echo "Moviendo Wordpress a /var/www/index..."
