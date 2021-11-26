@@ -457,7 +457,7 @@ sudo systemctl restart apache2
 
 echo "Creando copias de seguridad para el directorio /var/www/html donde se guardara Wordpress"
 echo 
-echo "La copia de seguridad estará guardadta en /var/www/html-Backuo"
+echo "La copia de seguridad estará guardada en /var/www/html-Backup"
 sudo cp -R /var/www/html /var/www/html-Backup 
 
 
@@ -502,13 +502,10 @@ sudo cp -R /var/www/html /var/www/html-Backup
 #--------------------------------- DESCARGA DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descargando Wordpress en /var/www/wordpress"
-echo 
-sudo wget -O /var/wwww/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
-echo
+sudo wget -O /var/www/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
 #--------------------------------- DECOMPRESION DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descomprimiendo Wordpress..."
-echo
 sudo tar -xvzf wordpress.tar.gz -C /var/www/
 
 #---------------------------------CREANDO SEGURIDAD PARA WP-ADMIN EN VH------------------------------------------------------------
