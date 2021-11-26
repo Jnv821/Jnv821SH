@@ -133,7 +133,7 @@ echo
 echo "Es necesario elegir el nombre del archivo de certificado de la llave para el uso de HTTPS"
 #-----------------------------------CERTIFICADO------------------------------------------------
 while true; do
-read -p "Nombre para el archivo de la llave: " CertName
+read -p "Nombre para el archivo del Certificado: " CertName
 echo
 read -p "Confirma que el nombre es correcto (Y/N)" iscertnameok
     case $iscertnameok in
@@ -211,8 +211,6 @@ echo "Se generará el contenido para $ServerName Este proceso podria tardar un r
 #============== GENERANDO CONTENIDO PARA EL PRIMER VIRTUAL HOST ==================
 
 #=========== DESCARGANDO IMAGEN DE FORMA OCULTA PARA UN PROCESO MAS FLUIDO =======
-
-sudo wget -U 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:14.0) Gecko/20100101 Firefox/14.0.1' --no-check-certificate https://github.com/Jnv821/Jnv821SH/raw/main/GNUBASHLOGO.png --output-file /var/www/$ServerName/GNUBASHLOGO.png
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
@@ -523,24 +521,3 @@ echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar
 echo " #==================================================#"
 echo " |                     FIN  DEL  SCRITP             |"
 echo " #==================================================#"
-
-
-# #==================================================#
-# |                     FIN                          |
-# #==================================================#
-#         _nnnn_                      
-#        dGGGGMMb     ,"""""""""""""""""""".
-#       @p~qp~~qMb    | ¡Gracias por leer!  |
-#       M|@||@) M|   _;....................'
-#       @,----.JM| -'
-#      JS^\__/  qKL
-#     dZP        qKRb
-#    dZP          qKKb
-#   fZP            SMMb
-#   HZM            MMMM
-#   FqM            MMMM
-# __| ".        |\dS"qML
-# |    `.       | `' \Zq
-#_)      \.___.,|     .'
-#\____   )MMMMMM|   .'
-#     `-'       `--' hjm
