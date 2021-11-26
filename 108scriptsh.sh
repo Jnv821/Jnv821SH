@@ -132,7 +132,6 @@ done
 echo
 echo "Es necesario elegir el nombre del archivo de certificado de la llave para el uso de HTTPS"
 #-----------------------------------CERTIFICADO------------------------------------------------
-echo "Es necesario elegir el nombre del archivo deL certificado para el uso de HTTPS"
 while true; do
 read -p "Nombre para el archivo de la llave: " CertName
 echo
@@ -174,10 +173,10 @@ sudo mkdir -p "/var/www/$ServerName"-ssl/ErrorDocs
 
 echo "Se han generado los directorios correctamente."
 
-"echo Generando el archivo de configuracion para $ServerName"
+echo "Generando el archivo de configuracion para $ServerName"
 
 # Genera el archivo de Virtual Host con todo el contenido necesario
-cat > /etc/apache2/sites-available/$ServerName.conf << EOF
+sudo cat > /etc/apache2/sites-available/$ServerName.conf << EOF
 <VirtualHost *:80>
 
     ServerName $ServerName.ubuntuserver.local
@@ -213,11 +212,11 @@ echo "Se generará el contenido para $ServerName Este proceso podria tardar un r
 
 #=========== DESCARGANDO IMAGEN DE FORMA OCULTA PARA UN PROCESO MAS FLUIDO =======
 
-wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-logo.svg/1920px-Gnu-bash-logo.svg.png --output-file /var/www/$ServerName/GNUBASHLOGO.PNG
+sudo wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-logo.svg/1920px-Gnu-bash-logo.svg.png --output-file /var/www/$ServerName/GNUBASHLOGO.PNG
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
-cat > /var/www/$ServerName/index.html << EOF
+sudo cat > /var/www/$ServerName/index.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -253,7 +252,7 @@ cat > /var/www/$ServerName/index.html << EOF
 EOF
 #============================ GENERANDO ARCHIVO CSS ===================================================
 echo "Genrando Archivo CSS..."
-cat > /var/www/$ServerName/Main.css << EOF
+sudo cat > /var/www/$ServerName/Main.css << EOF
 body{
     background-color: rgb(235, 235, 235);
 }
@@ -312,7 +311,7 @@ EOF
 
 #------------------------------------ERROR 403----------------------------------------------------------
 echo "Genrando Archivo de Error 403..."
-cat > /var/www/$ServerName/403.html << EOF
+sudo cat > /var/www/$ServerName/403.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -338,7 +337,7 @@ EOF
 
 #------------------------------------ERROR 404----------------------------------------------------------
 echo "Genrando Archivo de Error 404..."
-cat > /var/www/$ServerName/404.html << EOF
+sudo cat > /var/www/$ServerName/404.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -363,8 +362,8 @@ cat > /var/www/$ServerName/404.html << EOF
 EOF
 
 #------------------------------------ERROR 500----------------------------------------------------------
-echo "Genrando Archivo de Error 500..."
-cat > /var/www/$ServerName/500.html << EOF
+echo "Generando Archivo de Error 500..."
+sudo cat > /var/www/$ServerName/500.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -393,7 +392,7 @@ EOF
 #=================================== INICIO DE LA GENERACIÓN DE HOST VIRTUAL PARA HTTPS =======================
 echo "Generando archivo de configuracion para $ServerName-ssl"
 
-cat > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
+sudo cat > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
 <IfModule mod_ssl.c>
     <VirtualHost *:80>
 
@@ -425,20 +424,20 @@ EOF
 #==========================
 echo "Generando contenido para $ServeName-ssl"
 # Copia la página principal
-cp /var/www/$ServerName/index.html "/var/www/$ServerName"-ssl/index.html
+sudo cp /var/www/$ServerName/index.html "/var/www/$ServerName"-ssl/index.html
 # Copia el Archivo Css
-cp /var/www/$ServerName/Main.css "/var/www/$ServerName"-ssl/Main.css
+sudo cp /var/www/$ServerName/Main.css "/var/www/$ServerName"-ssl/Main.css
 # Copia la imagen
-cp /var/www/$ServerName/GNUBASHLOGO.png "/var/www/$ServerName"-ssl/GNUBASHLOGO.png
+sudo cp /var/www/$ServerName/GNUBASHLOGO.png "/var/www/$ServerName"-ssl/GNUBASHLOGO.png
 #==========================
 # Directorio de los documentos de error
 #==========================
 # Copia la página 403
-cp /var/www/$ServerName/403.html "/var/www/$ServerName"-ssl/403.html
+sudo cp /var/www/$ServerName/403.html "/var/www/$ServerName"-ssl/403.html
 # Copia la página 404
-cp /var/www/$ServerName/404.html "/var/www/$ServerName"-ssl/404.html
+sudo cp /var/www/$ServerName/404.html "/var/www/$ServerName"-ssl/404.html
 # Copia la página 500
-cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
+sudo cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
 #=========================
 # Fin de la copia
 #=========================
@@ -446,8 +445,8 @@ cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
 #================================= ACTIVACION DE LOS VIRTUALHOST ======================================================
 echo "Activando los virtualhosts"
 
-sudo ad2ensite $ServerName
-sudo ad2ensite $ServerName-ssl
+sudo add2ensite $ServerName
+sudo add2ensite $ServerName-ssl
 
 echo "Reiniciando Apache..."
 echo "Debera introducir la clave del certificado"
