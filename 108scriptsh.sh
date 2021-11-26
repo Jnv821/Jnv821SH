@@ -176,7 +176,7 @@ echo "Se han generado los directorios correctamente."
 echo "Generando el archivo de configuracion para $ServerName"
 
 # Genera el archivo de Virtual Host con todo el contenido necesario
-sudo bash -c cat > /etc/apache2/sites-available/$ServerName.conf << EOF
+sudo cat > /etc/apache2/sites-available/$ServerName.conf << EOF
 <VirtualHost *:80>
 
     ServerName $ServerName.ubuntuserver.local
@@ -216,7 +216,7 @@ sudo wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
-sudo bash -c cat /var/www/$ServerName/index.html << EOF
+sudo cat /var/www/$ServerName/index.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -252,7 +252,7 @@ sudo bash -c cat /var/www/$ServerName/index.html << EOF
 EOF
 #============================ GENERANDO ARCHIVO CSS ===================================================
 echo "Genrando Archivo CSS..."
-sudo bash -c cat > /var/www/$ServerName/Main.css << EOF
+sudo cat > /var/www/$ServerName/Main.css << EOF
 body{
     background-color: rgb(235, 235, 235);
 }
@@ -311,7 +311,7 @@ EOF
 
 #------------------------------------ERROR 403----------------------------------------------------------
 echo "Genrando Archivo de Error 403..."
-sudo bash -c cat > /var/www/$ServerName/403.html << EOF
+sudo cat > /var/www/$ServerName/403.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -337,7 +337,7 @@ EOF
 
 #------------------------------------ERROR 404----------------------------------------------------------
 echo "Genrando Archivo de Error 404..."
-sudo bash -c cat > /var/www/$ServerName/404.html << EOF
+sudo cat > /var/www/$ServerName/404.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -363,7 +363,7 @@ EOF
 
 #------------------------------------ERROR 500----------------------------------------------------------
 echo "Generando Archivo de Error 500..."
-sudo bash -c cat > /var/www/$ServerName/500.html << EOF
+sudo cat > /var/www/$ServerName/500.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -392,7 +392,7 @@ EOF
 #=================================== INICIO DE LA GENERACIÓN DE HOST VIRTUAL PARA HTTPS =======================
 echo "Generando archivo de configuracion para $ServerName-ssl"
 
-sudo bash -c cat > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
+sudo cat > /etc/apache2/sites-available/$ServerName-ssl.conf << EOF
 <IfModule mod_ssl.c>
     <VirtualHost *:80>
 
@@ -424,20 +424,20 @@ EOF
 #==========================
 echo "Generando contenido para $ServeName-ssl"
 # Copia la página principal
-sudo cp /var/www/$ServerName/index.html "/var/www/$ServerName"-ssl/index.html
+sudo cp /var/www/$ServerName/index.html /var/www/$ServerName-ssl/index.html
 # Copia el Archivo Css
-sudo cp /var/www/$ServerName/Main.css "/var/www/$ServerName"-ssl/Main.css
+sudo cp /var/www/$ServerName/Main.css /var/www/$ServerName-ssl/Main.css
 # Copia la imagen
-sudo cp /var/www/$ServerName/GNUBASHLOGO.png "/var/www/$ServerName"-ssl/GNUBASHLOGO.png
+sudo cp /var/www/$ServerName/GNUBASHLOGO.png /var/www/$ServerName-ssl/GNUBASHLOGO.png
 #==========================
 # Directorio de los documentos de error
 #==========================
 # Copia la página 403
-sudo cp /var/www/$ServerName/403.html "/var/www/$ServerName"-ssl/403.html
+sudo cp /var/www/$ServerName/403.html /var/www/$ServerName-ssl/403.html
 # Copia la página 404
-sudo cp /var/www/$ServerName/404.html "/var/www/$ServerName"-ssl/404.html
+sudo cp /var/www/$ServerName/404.html /var/www/$ServerName-ssl/404.html
 # Copia la página 500
-sudo cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
+sudo cp /var/www/$ServerName/500.html /var/www/$ServerName-ssl/500.html
 #=========================
 # Fin de la copia
 #=========================
