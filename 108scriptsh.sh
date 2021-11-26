@@ -502,7 +502,7 @@ sudo cp -R /var/www/html /var/www/html-Backup
 #--------------------------------- DESCARGA DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descargando Wordpress en /var/www/wordpress"
-sudo wget -O /var/www/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
+sudo wget --no-check-certificate -O /var/www/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
 #--------------------------------- DECOMPRESION DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descomprimiendo Wordpress..."
@@ -525,7 +525,7 @@ echo "Moviendo Wordpress a /var/www/index..."
 sudo rm -rf /var/www/html
 sudo mv /var/www/wordpress /var/www/html
 sudo chown -R www-data /var/www/html/
-echo "Wordpress se ha Movido a Index, Entre desde el navegador web para terminar la instalación"
+echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar la instalación"
 
 # ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
 
@@ -536,7 +536,7 @@ echo "Gracias por usar la herramienta de creación automatica de host virtuales 
 # #==================================================#
 #         _nnnn_                      
 #        dGGGGMMb     ,"""""""""""""""""""".
-#       @p~qp~~qMb    | Gracias por leer!  |
+#       @p~qp~~qMb    | ¡Gracias por leer!  |
 #       M|@||@) M|   _;....................'
 #       @,----.JM| -'
 #      JS^\__/  qKL
