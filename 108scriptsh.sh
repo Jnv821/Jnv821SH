@@ -229,7 +229,7 @@ sudo cat > /var/www/$ServerName/index.html << EOF
 </head>
 <body>
     
-    <img src="GNUBASHLOGO.png" alt="BASH LOGO">
+    <img src="./GNUBASHLOGO.png" alt="BASH LOGO">
     
     <div class="div1">
         <h1>La creación de los Virtual Host fue existosa.</h1>
@@ -396,10 +396,10 @@ sudo cat > /etc/apache2/sites-available/$ServerName-ssl.conf << EOF
 <IfModule mod_ssl.c>
     <VirtualHost *:443>
 
-        ServerName "$ServerName"-ssl.ubuntuserver.local
-        ServerAlias www."$ServerName"-ssl.ubuntuserver.local
+        ServerName $ServerName-ssl.ubuntuserver.local
+        ServerAlias www.$ServerName-ssl.ubuntuserver.local
         ServerAdmin $Email
-        DocumentRoot "/var/www/$ServerName"-ssl/
+        DocumentRoot /var/www/$ServerName-ssl/
 
         # Apartado SSL
 
@@ -531,7 +531,7 @@ echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar
 # ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
 
 echo " #==================================================#"
-echo " |                     FIN  DEL  SCRITP                     |"
+echo " |                     FIN  DEL  SCRITP             |"
 echo " #==================================================#"
 
 
