@@ -212,7 +212,7 @@ echo "Se generará el contenido para $ServerName Este proceso podria tardar un r
 
 #=========== DESCARGANDO IMAGEN DE FORMA OCULTA PARA UN PROCESO MAS FLUIDO =======
 
-sudo wget -q https://github.com/Jnv821/Jnv821SH/raw/main/GNUBASHLOGO.png --output-file /var/www/$ServerName/GNUBASHLOGO.png
+sudo wget -q --no-check-certificate https://github.com/Jnv821/Jnv821SH/raw/main/GNUBASHLOGO.png --output-file /var/www/$ServerName/GNUBASHLOGO.png
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
