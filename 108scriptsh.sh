@@ -433,11 +433,11 @@ sudo cp /var/www/$ServerName/GNUBASHLOGO.png /var/www/$ServerName-ssl/GNUBASHLOG
 # Directorio de los documentos de error
 #==========================
 # Copia la página 403
-sudo cp /var/www/$ServerName/403.html /var/www/$ServerName-ssl/ErrorDocs/403.html
+sudo cp /var/www/$ServerName/ErrorDocs/403.html /var/www/$ServerName-ssl/ErrorDocs/403.html
 # Copia la página 404
-sudo cp /var/www/$ServerName/404.html /var/www/$ServerName-ssl/ErrorDocs/404.html
+sudo cp /var/www/$ServerName/ErrorDocs/404.html /var/www/$ServerName-ssl/ErrorDocs/404.html
 # Copia la página 500
-sudo cp /var/www/$ServerName/500.html /var/www/$ServerName-ssl/ErrorDocs/500.html
+sudo cp /var/www/$ServerName/ErrorDocs/500.html /var/www/$ServerName-ssl/ErrorDocs/500.html
 #=========================
 # Fin de la copia
 #=========================
