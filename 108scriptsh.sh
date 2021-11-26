@@ -506,7 +506,8 @@ sudo wget --no-check-certificate -O /var/www/wordpress.tar.gz https://es.wordpre
 #--------------------------------- DECOMPRESION DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descomprimiendo Wordpress..."
-sudo tar -xvzf wordpress.tar.gz -C /var/www/
+sudo mkdir /var/www/wordpress
+sudo tar -xvzf wordpress.tar.gz /var/www/wordpress
 
 #---------------------------------CREANDO SEGURIDAD PARA WP-ADMIN EN VH------------------------------------------------------------
 # Crea una copia de seguridad
