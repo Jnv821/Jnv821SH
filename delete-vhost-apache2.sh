@@ -1,5 +1,7 @@
  #!/bin/bash
  #============SCRIPT PARA LA ELIMINACIÓN DE LOS ARCHIVOS Y VOLVER A BASE==============
+read -p "Nombre del servidor que será borrado " ServerName
+
  
  #----- Remueve todas las paginas web -----
  echo "Removiendo las carpetas de contenido de los host virtuales"
@@ -12,6 +14,8 @@
  #sudo rm -dR /var/www/wordpress
 
  #----- Remueve los archivos del certificado y la llave ------
+KeyName=$ServeName.key
+CertName=$ServeName.pem
 
 echo "Removiendo archivos Archivos de llave y certificados"
  sudo rm /etc/ssl/private/$KeyName.key
