@@ -181,7 +181,7 @@ sudo cat > /etc/apache2/sites-available/$ServerName.conf << EOF
 
     ServerName $ServerName.ubuntuserver.local
     ServerAlias www.$ServerName.ubuntuserver.local
-    ServerAdmin $email
+    ServerAdmin $Email
     DocumentRoot /var/www/$ServerName
 
     # Apartado de Redirecciones
@@ -311,7 +311,7 @@ EOF
 
 #------------------------------------ERROR 403----------------------------------------------------------
 echo "Genrando Archivo de Error 403..."
-sudo cat > /var/www/$ServerName/403.html << EOF
+sudo cat > /var/www/$ServerName/ErrorDocs/403.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -337,7 +337,7 @@ EOF
 
 #------------------------------------ERROR 404----------------------------------------------------------
 echo "Genrando Archivo de Error 404..."
-sudo cat > /var/www/$ServerName/404.html << EOF
+sudo cat > /var/www/$ServerName/ErrorDocs/404.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -363,7 +363,7 @@ EOF
 
 #------------------------------------ERROR 500----------------------------------------------------------
 echo "Generando Archivo de Error 500..."
-sudo cat > /var/www/$ServerName/500.html << EOF
+sudo cat > /var/www/$ServerName/ErrorDocs/500.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -394,11 +394,11 @@ echo "Generando archivo de configuracion para $ServerName-ssl"
 
 sudo cat > /etc/apache2/sites-available/$ServerName-ssl.conf << EOF
 <IfModule mod_ssl.c>
-    <VirtualHost *:80>
+    <VirtualHost *:443>
 
         ServerName "$ServerName"-ssl.ubuntuserver.local
         ServerAlias www."$ServerName"-ssl.ubuntuserver.local
-        ServerAdmin $email
+        ServerAdmin $Email
         DocumentRoot "/var/www/$ServerName"-ssl/
 
         # Apartado SSL
@@ -433,11 +433,11 @@ sudo cp /var/www/$ServerName/GNUBASHLOGO.png /var/www/$ServerName-ssl/GNUBASHLOG
 # Directorio de los documentos de error
 #==========================
 # Copia la página 403
-sudo cp /var/www/$ServerName/403.html /var/www/$ServerName-ssl/403.html
+sudo cp /var/www/$ServerName/403.html /var/www/$ServerName-ssl/ErrorDocs/403.html
 # Copia la página 404
-sudo cp /var/www/$ServerName/404.html /var/www/$ServerName-ssl/404.html
+sudo cp /var/www/$ServerName/404.html /var/www/$ServerName-ssl/ErrorDocs/404.html
 # Copia la página 500
-sudo cp /var/www/$ServerName/500.html /var/www/$ServerName-ssl/500.html
+sudo cp /var/www/$ServerName/500.html /var/www/$ServerName-ssl/ErrorDocs/500.html
 #=========================
 # Fin de la copia
 #=========================
@@ -454,3 +454,102 @@ echo "Debera introducir la clave del certificado"
 sudo systemctl restart apache2
 
 #============================ FINALIZACIÓN DE LOS VIRTUALHOSTS ========================================================
+
+echo "Creando copias de seguridad para el directorio /var/www/html donde se guardara Wordpress"
+echo 
+echo "La copia de seguridad estará guardadta en /var/www/html-Backuo"
+sudo cp -R /var/www/html /var/www/html-Backup 
+
+
+#=======================================================================================================================
+#=======================================================================================================================
+
+#=============================== INSTALACIÓN DE WORDPRESS===============================================================
+
+#--------------------------------- REVISION DE INSTALACIÓN DE PHP Y MYSQL ----------------------------------------------
+# NOTA: DOY POR HECHO QUE PHP Y MYSQL ESTA INSTALADO PERO AQUI ESTAN LOS COMANDOS EN CASO DE QUERER HACERLO EN UN FUTURO || 
+# LOS COMANDOS EN LOS BLOQUES PHP Y MYSQL NO HAN SIDO PROBADOS!!!!!!!
+#
+#echo "Wordpress precisa de PHP y MySQL, procederemos "
+# Actualiza repositorios
+#sudo apt-get update
+# Instala php
+#sudo apt-get install PHP
+#source /etc/apache2/envvars
+# Activa los modulos
+#sudo a2enmod mpm_event proxy_fcgi setenvif
+# Instalar php7.4 para http2
+#sudo apt install php7.4-fpm
+# Configuracion de php7.4-fpm
+#sudo a2enconf php7.4-fpm
+# Reinicio del servicio apache2
+#sudo systemctl restart apache2
+
+#--------------------------------- INSTALACION DE  MYSQL -----------------------------------------------------------------
+# Actualizar repositorios
+# sudo apt-get 
+# Instalar mysql
+#install  mysql-server
+# Revisar que el estado es correcto
+# systemctl status mysql
+# Instalar paquete para conectar php y mysql
+# sudo apt-get install php7.4-mysql
+# Reiniciar servicios
+# sudo systemctl restart apache2
+# Aplicar configuración de seguridad
+# sudo mysql_secure_installation
+#
+#--------------------------------- DESCARGA DE WORDPRESS -----------------------------------------------------------------
+
+echo "Descargando Wordpress en /var/www/wordpress"
+echo 
+sudo wget -O /var/wwww/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
+echo
+#--------------------------------- DECOMPRESION DE WORDPRESS -----------------------------------------------------------------
+
+echo "Descomprimiendo Wordpress..."
+echo
+sudo tar -xvzf wordpress.tar.gz -C /var/www/
+
+#---------------------------------CREANDO SEGURIDAD PARA WP-ADMIN EN VH------------------------------------------------------------
+# Crea una copia de seguridad
+sudo cp  /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
+# Añade las siguientes lineas
+sudo sed -i '45i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '46i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '47i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '48i  #='                                               /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '49i <Directory /var/www/html/wp-admin>'                /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '50i Require ip 10.0.1.10'                              /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '51i </Directory>'                                      /etc/apache2/sites-available/000-default.conf 
+ 
+#------------------------------- COLOCANDO WORDPRESS EN EL DIRECTORIO HTML -------------------------------------------------------
+echo "Moviendo Wordpress a /var/www/index..."
+sudo rm -rf /var/www/html
+sudo mv /var/www/wordpress /var/www/html
+sudo chown -R www-data /var/www/html/
+echo "Wordpress se ha Movido a Index, Entre desde el navegador web para terminar la instalación"
+
+# ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
+
+echo "Gracias por usar la herramienta de creación automatica de host virtuales y wordpress!"
+
+# #==================================================#
+# |                     FIN                          |
+# #==================================================#
+#         _nnnn_                      
+#        dGGGGMMb     ,"""""""""""""""""""".
+#       @p~qp~~qMb    | Gracias por leer!  |
+#       M|@||@) M|   _;....................'
+#       @,----.JM| -'
+#      JS^\__/  qKL
+#     dZP        qKRb
+#    dZP          qKKb
+#   fZP            SMMb
+#   HZM            MMMM
+#   FqM            MMMM
+# __| ".        |\dS"qML
+# |    `.       | `' \Zq
+#_)      \.___.,|     .'
+#\____   )MMMMMM|   .'
+#     `-'       `--' hjm
