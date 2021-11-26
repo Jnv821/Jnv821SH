@@ -168,8 +168,8 @@ echo "Se ha terminado de recopliar los datos, se pasara al proceso de creacion"
 
 echo "Generando directorios para guardar hosting108, hosting108-ssl y todo su contenido"
 
-sudo mkdir -p "/var/www/$ServerName"/ErrorDocs
-sudo mkdir -p "/var/www/$ServerName"-ssl/ErrorDocs
+sudo mkdir -p /var/www/$ServerName/ErrorDocs
+sudo mkdir -p /var/www/$ServerName-ssl/ErrorDocs
 
 echo "Se han generado los directorios correctamente."
 
