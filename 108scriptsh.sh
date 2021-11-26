@@ -216,7 +216,7 @@ sudo wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
-sudo cat > /var/www/$ServerName/index.html << EOF
+sudo touch /var/www/$ServerName/index.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -252,7 +252,7 @@ sudo cat > /var/www/$ServerName/index.html << EOF
 EOF
 #============================ GENERANDO ARCHIVO CSS ===================================================
 echo "Genrando Archivo CSS..."
-sudo cat > /var/www/$ServerName/Main.css << EOF
+sudo touch > /var/www/$ServerName/Main.css << EOF
 body{
     background-color: rgb(235, 235, 235);
 }
@@ -311,7 +311,7 @@ EOF
 
 #------------------------------------ERROR 403----------------------------------------------------------
 echo "Genrando Archivo de Error 403..."
-sudo cat > /var/www/$ServerName/403.html << EOF
+sudo touch > /var/www/$ServerName/403.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -337,7 +337,7 @@ EOF
 
 #------------------------------------ERROR 404----------------------------------------------------------
 echo "Genrando Archivo de Error 404..."
-sudo cat > /var/www/$ServerName/404.html << EOF
+sudo touch > /var/www/$ServerName/404.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -363,7 +363,7 @@ EOF
 
 #------------------------------------ERROR 500----------------------------------------------------------
 echo "Generando Archivo de Error 500..."
-sudo cat > /var/www/$ServerName/500.html << EOF
+sudo touch > /var/www/$ServerName/500.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -392,7 +392,7 @@ EOF
 #=================================== INICIO DE LA GENERACIÓN DE HOST VIRTUAL PARA HTTPS =======================
 echo "Generando archivo de configuracion para $ServerName-ssl"
 
-sudo cat > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
+sudo touch > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
 <IfModule mod_ssl.c>
     <VirtualHost *:80>
 
@@ -445,8 +445,8 @@ sudo cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
 #================================= ACTIVACION DE LOS VIRTUALHOST ======================================================
 echo "Activando los virtualhosts"
 
-sudo add2ensite $ServerName
-sudo add2ensite $ServerName-ssl
+sudo a2ensite $ServerName
+sudo a2ensite $ServerName-ssl
 
 echo "Reiniciando Apache..."
 echo "Debera introducir la clave del certificado"
