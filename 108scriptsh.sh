@@ -11,34 +11,6 @@
 #  
 #   Este Script Bash automatizara la creación de ciertas tareas. 
 #   Desplegará un par de host virtuales y wordpress.
-#   
-#   ===============================================================================
-#   Valores Predefinidos:
-#       
-#   Host virtuales: 
-#           Conexión Http:
-#                   Nombre del archivo VH: hosting108.conf
-#
-#                   ServerName: hosting108.ubuntuserver.local
-#                   ServerAlias: www.hosting108.local
-#                   ServerAdmin: a20joserf@iessanclemente.net
-#                   DocumentRoot: /var/www/hosting108
-#                   Redirección a: https://hosting108.ubuntuserver.local
-#                   Paginas de Error: Mensaje de Error sencillo
-#
-#           
-#                   Landing Page: Página personalizada.
-#
-#          Conexión Https:
-#                   Nombre del archivo VH: hosting108-ssl.conf
-#
-#                   ServerName: hosting108.ubuntuserver.local
-#                   ServerAlias: www.hosting108ssl.local
-#                   ServerAdmin: a20joserf@iessanclemente.net
-#                   DocumentRoot: /var/www/hosting108-ssl
-#                   Llave SSL: hosting108.key
-#                   Certificado SSL: hosting108.pem
-#                   Paginas de Error: Mensaje de Error sencillo
 #
 # ==============================================================================
 #                   ESTRUCTURA DE FICHEROS QUE SE CREARA
@@ -180,6 +152,13 @@ read -p "Confirma que el nombre es correcto (Y/N)" iscertnameok
 done
 echo
 
+
+#======================= GENERACION DE LA CLAVE Y CERTIFICADO PRE CREACION DE HOST VIRTUAL HTTPS============
+echo "Generando la clave y certificado para HTTPS, debera introducir unos datos a posterior"
+sudo openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/$KeyName.key -out /etc/ssl/certs/$CertName.pem -days 365
+
+echo 
+
 echo "Se ha terminado de recopliar los datos, se pasara al proceso de creacion"
 
 #=========================== FIN DE LA RECOPILACION DE DATOS ===================================
@@ -197,7 +176,7 @@ echo "Se han generado los directorios correctamente."
 
 "echo Generando el archivo de configuracion para $ServerName"
 
-# Genera el archivo de Virtual Host con todo el contenido necesario y limpia la terminal.
+# Genera el archivo de Virtual Host con todo el contenido necesario
 cat > /etc/apache2/sites-available/$ServerName.conf << EOF
 <VirtualHost *:80>
 
@@ -240,7 +219,7 @@ wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-logo.
 echo "Genrando index.html..."
 cat > /var/www/$ServerName/index.html << EOF
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -335,7 +314,7 @@ EOF
 echo "Genrando Archivo de Error 403..."
 cat > /var/www/$ServerName/403.html << EOF
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -361,7 +340,7 @@ EOF
 echo "Genrando Archivo de Error 404..."
 cat > /var/www/$ServerName/404.html << EOF
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -387,7 +366,7 @@ EOF
 echo "Genrando Archivo de Error 500..."
 cat > /var/www/$ServerName/500.html << EOF
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -409,5 +388,70 @@ cat > /var/www/$ServerName/500.html << EOF
 </html>
 EOF
 
-#===================================FIN DE LA GENERACION DE CONTENIDO PARA HTTP ============================
+#===================================FIN DE LA GENERACION DE CONTENIDO PARA HTTP ===============================
 
+#=================================== INICIO DE LA GENERACIÓN DE HOST VIRTUAL PARA HTTPS =======================
+echo "Generando archivo de configuracion para $ServerName-ssl"
+
+cat > "/etc/apache2/sites-available/$ServerName"-ssl.conf << EOF
+<IfModule mod_ssl.c>
+    <VirtualHost *:80>
+
+        ServerName "$ServerName"-ssl.ubuntuserver.local
+        ServerAlias www."$ServerName"-ssl.ubuntuserver.local
+        ServerAdmin $email
+        DocumentRoot "/var/www/$ServerName"-ssl/
+
+        # Apartado SSL
+
+        SSLengine On
+        SSLCertificateKeyFile /etc/ssl/private/$KeyName.key
+        SSLCertificateFile    /etc/ssl/certs/$CertName.pem
+
+        # Apartado de los documentos de errores
+
+        ErrorDocument 403 /ErrorDocs/403.html
+        ErrorDocument 404 /ErrorDocs/404.html
+        ErrorDocument 500 /ErrorDocs/500.html
+
+        # Fin de la configuracion
+
+    </VirtualHost>
+<IfModule>
+EOF
+
+#===================== COPIA DEL CONTENIDO DE HTTP A HTTPS =========================================================
+# Directorio Base:
+#==========================
+echo "Generando contenido para $ServeName-ssl"
+# Copia la página principal
+cp /var/www/$ServerName/index.html "/var/www/$ServerName"-ssl/index.html
+# Copia el Archivo Css
+cp /var/www/$ServerName/Main.css "/var/www/$ServerName"-ssl/Main.css
+# Copia la imagen
+cp /var/www/$ServerName/GNUBASHLOGO.png "/var/www/$ServerName"-ssl/GNUBASHLOGO.png
+#==========================
+# Directorio de los documentos de error
+#==========================
+# Copia la página 403
+cp /var/www/$ServerName/403.html "/var/www/$ServerName"-ssl/403.html
+# Copia la página 404
+cp /var/www/$ServerName/404.html "/var/www/$ServerName"-ssl/404.html
+# Copia la página 500
+cp /var/www/$ServerName/500.html "/var/www/$ServerName"-ssl/500.html
+#=========================
+# Fin de la copia
+#=========================
+
+#================================= ACTIVACION DE LOS VIRTUALHOST ======================================================
+echo "Activando los virtualhosts"
+
+sudo ad2ensite $ServerName
+sudo ad2ensite $ServerName-ssl
+
+echo "Reiniciando Apache..."
+echo "Debera introducir la clave del certificado"
+
+sudo systemctl restart apache2
+
+#============================ FINALIZACIÓN DE LOS VIRTUALHOSTS ========================================================
