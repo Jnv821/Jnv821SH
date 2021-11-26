@@ -22,7 +22,7 @@
 #            `- html/... (Wordpress)
 #           |
 #           |
-#            ` hosting108/
+#            ` $ServerName/
 #           |           |
 #           |            `index.html 
 #           |           |
@@ -38,7 +38,7 @@
 #           |                     |
 #           |                      `500.html
 #           |
-#            ` hosting108/
+#            ` $ServerName/
 #           |           |
 #           |            `index.html 
 #           |           |
@@ -166,7 +166,7 @@ echo "Se ha terminado de recopliar los datos, se pasara al proceso de creacion"
 
 # Genera la estructura de ficheros basada en las variables.
 
-echo "Generando directorios para guardar hosting108, hosting108-ssl y todo su contenido"
+echo "Generando directorios para guardar $ServerName, $ServerName-ssl y todo su contenido"
 
 sudo mkdir -p /var/www/$ServerName/ErrorDocs
 sudo mkdir -p /var/www/$ServerName-ssl/ErrorDocs
@@ -212,7 +212,7 @@ echo "Se generará el contenido para $ServerName Este proceso podria tardar un r
 
 #=========== DESCARGANDO IMAGEN DE FORMA OCULTA PARA UN PROCESO MAS FLUIDO =======
 
-sudo wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-logo.svg/1920px-Gnu-bash-logo.svg.png --output-file /var/www/$ServerName/GNUBASHLOGO.png
+sudo wget -q https://github.com/Jnv821/Jnv821SH/raw/main/GNUBASHLOGO.png --output-file /var/www/$ServerName/GNUBASHLOGO.png
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
