@@ -216,7 +216,7 @@ sudo wget -q https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Gnu-bash-
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
-sudo cat /var/www/$ServerName/index.html << EOF
+sudo cat > /var/www/$ServerName/index.html << EOF
 <!DOCTYPE html>
 <html lang="es">
 <head>
