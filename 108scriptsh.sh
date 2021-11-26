@@ -501,8 +501,8 @@ sudo cp -R /var/www/html /var/www/html-Backup
 #
 #--------------------------------- DESCARGA DE WORDPRESS -----------------------------------------------------------------
 
-echo "Descargando Wordpress en /var/www/wordpress"
-sudo wget --no-check-certificate -O /var/www/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
+echo "Descargando Wordpress en /var/www/wordpress.."
+sudo wget -q --no-check-certificate -O /var/www/wordpress.tar.gz https://es.wordpress.org/latest-es_ES.tar.gz
 #--------------------------------- DECOMPRESION DE WORDPRESS -----------------------------------------------------------------
 
 echo "Descomprimiendo Wordpress..."
@@ -530,7 +530,10 @@ echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar
 
 # ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
 
-echo "Gracias por usar la herramienta de creación automatica de host virtuales y wordpress!"
+echo " #==================================================#"
+echo " |                     FIN  DEL  SCRITP                     |"
+echo " #==================================================#"
+
 
 # #==================================================#
 # |                     FIN                          |
