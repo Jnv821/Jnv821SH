@@ -416,7 +416,7 @@ sudo cat > /etc/apache2/sites-available/$ServerName-ssl.conf << EOF
         # Fin de la configuracion
 
     </VirtualHost>
-<IfModule>
+</IfModule>
 EOF
 
 #===================== COPIA DEL CONTENIDO DE HTTP A HTTPS =========================================================
