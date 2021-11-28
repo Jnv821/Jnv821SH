@@ -502,13 +502,13 @@ cd -
 # Crea una copia de seguridad
 sudo cp  /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
 # Añade las siguientes lineas
-sudo sed -i '2i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '3i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '4i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '5i  #=' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '6i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '7i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '8i </Directory>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '20i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '21i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '22i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '23i  #=' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '24i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '25i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '26i </Directory>' /etc/apache2/sites-available/000-default.conf 
  
 #------------------------------- COLOCANDO WORDPRESS EN EL DIRECTORIO HTML -------------------------------------------------------
 echo "Moviendo Wordpress a /var/www/index..."
