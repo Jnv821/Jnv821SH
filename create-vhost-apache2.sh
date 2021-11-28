@@ -502,15 +502,15 @@ cd -
 # Crea una copia de seguridad
 sudo cp  /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.bak
 # Añade las siguientes lineas
-sudo sed -i '20i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '21i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '22i  #===============================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '23i  #=' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '24i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '26i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '27i </Directory>' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '28i #================================================' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '29i #=' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '13i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '14i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '15i  #===============================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '16i  #=' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '17i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '18i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '19i </Directory>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '20i #================================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '21i #=' /etc/apache2/sites-available/000-default.conf 
  
 #------------------------------- COLOCANDO WORDPRESS EN EL DIRECTORIO HTML -------------------------------------------------------
 echo "Moviendo Wordpress a /var/www/index..."
