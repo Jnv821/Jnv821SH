@@ -417,7 +417,7 @@ sudo cp /var/www/$ServerName/index.html /var/www/$ServerName-ssl/index.html
 # Copia el Archivo Css
 sudo cp /var/www/$ServerName/Main.css /var/www/$ServerName-ssl/Main.css
 # Copia la imagen
-sudo cp /var/www/$ServerName/GNUBASHLOGO.png /var/www/$ServerName-ssl/GNUBASHLOGO.png
+#sudo cp /var/www/$ServerName/GNUBASHLOGO.png /var/www/$ServerName-ssl/GNUBASHLOGO.png
 #==========================
 # Directorio de los documentos de error
 #==========================
@@ -507,7 +507,6 @@ sudo sed -i '21i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2
 sudo sed -i '22i  #===============================================' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '23i  #=' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '24i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '25i Require all granted' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '26i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '27i </Directory>' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '28i #================================================' /etc/apache2/sites-available/000-default.conf 

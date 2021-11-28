@@ -42,6 +42,5 @@ sudo rm /etc/apache2/sites-available/$ServerName-ssl.conf
 #========== RESTAURAR LOS ARCHIVOS ANTERIORES ===========
 
 echo "Restaurando Archivos"
-sudo rm -R -d /var/www/html
 sudo mv /etc/apache2/sites-available/000-default.conf.bak /etc/apache2/sites-available/000-default.conf
 sudo mkdir /var/www/html
