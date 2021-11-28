@@ -9,7 +9,7 @@
 #   ===============================================================================
 #   Descripción: 
 #  
-#   Este Script Bash automatizara la creación de ciertas tareas. 
+#   Este Script Bash automatizara ciertas tareas. 
 #   Desplegará un par de host virtuales y wordpress.
 #
 # ==============================================================================
@@ -64,8 +64,10 @@
 # ===========================================================================
 
 # Estuve teniendo porblemas para que echo -e ...\n... hiciese un salto de linea.
-# por eso echo " " estara presente.
-echo "Bienvenido a la herramienta de creacion de VirtualHost e implantacion de Wordpress Automatica."
+# por eso echo " " o echo estara presente de forma vacia.
+echo "Bienvenido a la herramienta de creacion de VirtualHost"
+echo "e implantacion de Wordpress Automatica."
+echo
 echo "Los hots virtuales creados con esta herramienta utilizan el nombre"
 echo "El nombre se añadira a 'ubuntuserver.local' y en caso de ser https se añadira '-ssl'"
 echo
@@ -155,11 +157,8 @@ echo
 #======================= GENERACION DE LA CLAVE Y CERTIFICADO PRE CREACION DE HOST VIRTUAL HTTPS============
 echo "Generando la clave y certificado para HTTPS, debera introducir unos datos a posterior"
 sudo openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/private/$KeyName.key -out /etc/ssl/certs/$CertName.pem -days 365
-
 echo 
-
 echo "Se ha terminado de recopliar los datos, se pasara al proceso de creacion"
-
 #=========================== FIN DE LA RECOPILACION DE DATOS ===================================
 
 #========================== GENERANDO LOS DIRECTORIOS Y FICHEROS ===============================
@@ -172,7 +171,7 @@ sudo mkdir -p /var/www/$ServerName/ErrorDocs
 sudo mkdir -p /var/www/$ServerName-ssl/ErrorDocs
 
 echo "Se han generado los directorios correctamente."
-
+#-------------------------------------------------------------------
 echo "Generando el archivo de configuracion para $ServerName"
 
 # Genera el archivo de Virtual Host con todo el contenido necesario
@@ -204,13 +203,15 @@ EOF
 
 echo "Se ha generado el archivo de configuración para $ServerName"
 
-# Genera TODO el contenido para la estructura de ficheros de hosting 108.
+# Genera TODO el contenido para la estructura de ficheros.
 
 echo "Se generará el contenido para $ServerName Este proceso podria tardar un rato." 
 
 #============== GENERANDO CONTENIDO PARA EL PRIMER VIRTUAL HOST ==================
 
 #=========== DESCARGANDO IMAGEN DE FORMA OCULTA PARA UN PROCESO MAS FLUIDO =======
+
+# REMOVIDO A CAUSA DE PROBLEMAS CON WGET DESCARGANDO UNA IMAGEN CORRUPTA.
 
 #========== Generando Index.html ==================================================
 echo "Genrando index.html..."
@@ -518,6 +519,6 @@ echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar
 
 # ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
 
-echo " #==================================================#"
-echo " |                     FIN  DEL  SCRITP             |"
-echo " #==================================================#"
+echo " #======================================================#"
+echo " |                     FIN  DEL  SCRITP                 |"
+echo " #======================================================#"
