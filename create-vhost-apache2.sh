@@ -507,8 +507,11 @@ sudo sed -i '21i  #=========ACCES CONTROL TO WP ADMIN=============' /etc/apache2
 sudo sed -i '22i  #===============================================' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '23i  #=' /etc/apache2/sites-available/000-default.conf 
 sudo sed -i '24i <Directory /var/www/html/wp-admin>' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '25i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
-sudo sed -i '26i </Directory>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '25i Require all' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '26i Require ip 10.0.1.10' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '27i </Directory>' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '28i #================================================' /etc/apache2/sites-available/000-default.conf 
+sudo sed -i '29i #=' /etc/apache2/sites-available/000-default.conf 
  
 #------------------------------- COLOCANDO WORDPRESS EN EL DIRECTORIO HTML -------------------------------------------------------
 echo "Moviendo Wordpress a /var/www/index..."
