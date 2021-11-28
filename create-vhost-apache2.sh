@@ -518,6 +518,8 @@ sudo rm -rf /var/www/html
 sudo mv /var/www/wordpress /var/www/html
 sudo chown -R www-data /var/www/html/
 echo "Wordpress se ha movido a Index, Entre desde el navegador web para terminar la instalación"
+echo "Se reiniciara el Servidor para aplicar cambios"
+sudo systemctl restart apache2
 
 # ----------------------------- FINALIZACIÓN DEL SCIPT ----------------------------------------------------------------------------
 
